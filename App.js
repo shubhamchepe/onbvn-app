@@ -22,6 +22,9 @@ import SplashScreen from './App/Screens/SplashScreen';
 import WelcomeScreens from './App/Screens/WelcomeScreens';
 import LoginScreen from './App/Screens/LoginScreen';
 import RegisterScreen from './App/Screens/RegisterScreen';
+import RegisterScreen1 from './App/Screens/RegisterScreen1';
+import RegisterScreen2 from './App/Screens/RegisterScreen2';
+import RegisterScreen3 from './App/Screens/RegisterScreen3';
 import HomeScreen1 from './App/Screens/HomeScreen1';
 import HomeScreen from './App/Screens/HomeScreen';
 import ProfileScreen from './App/Screens/ProfileScreen';
@@ -44,7 +47,7 @@ export default class App extends Component {
       <SplashScreen />
       <WelcomeScreens />
       <LoginScreen />
-      <RegisterScreen />
+      <RegisterScreen1 />
       <HomeScreen1 />
       <HomeScreen />
       <ProfileScreen />
@@ -171,6 +174,24 @@ const MainNavigator = createStackNavigator({
   Chatscreen: {
     screen: ChatScreen,
     
+  },
+  Registerscreenstep1: {
+    screen: RegisterScreen1,
+    navigationOptions: {
+      header: null
+    }
+  },
+  Registerscreenstep2: {
+    screen: RegisterScreen2,
+    navigationOptions: {
+      header: null
+    }
+  },
+  Registerscreenstep3: {
+    screen: RegisterScreen3,
+    navigationOptions: {
+      header: null
+    }
   },
   
 },

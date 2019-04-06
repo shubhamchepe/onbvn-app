@@ -4,7 +4,7 @@ import { withNavigation } from 'react-navigation';
 
 class GoToRegScreen extends React.Component {
   render() {
-    return <View style={{alignItems: 'center'}}><TouchableOpacity title="Back" onPress={() => { this.props.navigation.navigate('Registerscreen') }} style={{backgroundColor: '#303030', width: Dimensions.get('window').width-200, height: 45, justifyContent: 'center', borderRadius: 5}} >
+    return <View style={{alignItems: 'center'}}><TouchableOpacity title="Back" onPress={() => { this.props.navigation.navigate('Registerscreenstep1') }} style={{backgroundColor: '#303030', width: Dimensions.get('window').width-200, height: 45, justifyContent: 'center', borderRadius: 5}} >
     <Text style={{fontSize: 18, fontWeight: 'normal', textAlign: 'center', justifyContent: 'center', color: '#ffffff'}}>Register On onbvn</Text>
     </TouchableOpacity></View>;
   }

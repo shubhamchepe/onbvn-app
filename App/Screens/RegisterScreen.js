@@ -1,143 +1,232 @@
 import React, {Component} from 'react';
-import {ImageBackground, StatusBar, Platform, ScrollView, View, Image, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions} from 'react-native';
+import {ImageBackground, StatusBar, Platform, ScrollView, View, Image, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, ProgressBarAndroid, YellowBox} from 'react-native';
 import { Container, Content, List, ListItem, Right, Left, Body, Header, Title, Toast, StyleProvider } from 'native-base';
 import ForgotPass from '../Components/ForgotPass';
 import GoToRegScreen from '../Components/GoToRegScreen';
+import GoToLoginScreenBtn from '../Components/GoToLoginScreenBtn';
 import axios from 'react-native-axios';
+import RegisterScreen1 from './RegisterScreen1';
+import RegisterScreen2 from './RegisterScreen2';
+import welcomescreen2 from '../Images/welcomescreen2.png';
+import {
+  createSwitchNavigator,
+  createAppContainer,
+  createDrawerNavigator,
+  createBottomTabNavigator,
+  createStackNavigator,
+  withNavigation
+} from 'react-navigation';
+import AsyncStorage from '@react-native-community/async-storage';
 const { width: WIDTH } = Dimensions.get('window')
+const { height: HEIGHT } = Dimensions.get('window')
+
 
 
 class RegisterScreen extends Component {
 
-    constructor(props){
-      super(props);
-      this.state = {
-        full_name: '',
-           user_name: '',
-           mobile_number: '',
-           e_mail: '',
-           pass_word: ''
+  constructor(props){
+    super(props);
+    this.state = {
+      currentScreen: 'RegisterScreen1',
+      progress: 0.33,
+      user_reg_data:{
+      RS1_data: {
+      full_name: '',
+         user_name: '',
+         mobile_number: '',
+         e_mail: '',
+         pass_word: '',
+      },
+      RS2_data: {
+        coll_ege: '',
+        sch_ool: '',
+        wo_rk: '',
+        ab_out: '',
+        intr_easts: '',
+        user_link: ''
       }
     }
-    submitAndClear = () => {
-      this.setState({
+    }
+  }
+
+  nextStep = async () => {
+    this.setState({
+      currentScreen: 'RegisterScreen2',
+      progress: 1,
+      user_reg_data:{
+        RS1_data: {
         full_name: '',
            user_name: '',
            mobile_number: '',
            e_mail: '',
-           pass_word: ''
-      })
-    
-      /**const newUser = {
-        full_name: this.state.full_name,
-        user_name: this.state.user_name,
-        mobile_number: this.state.mobile_number,
-        e_mail: this.state.e_mail,
-        pass_word: this.state.password
-      }**/
-    
-      this.props.navigation.navigate('Loginscreen'); //Homescreen1
-      console.log('Form Submitted !');
-        console.log(`Full Name : ${this.state.full_name}`);
-        console.log(`User Name : ${this.state.user_name}`);
-        console.log(`Mobile Number : ${this.state.mobile_number}`);
-        console.log(`E-Mail : ${this.state.e_mail}`);
-        console.log(`Password : ${this.state.pass_word}`);
-    
+           pass_word: '',
+        },
+        RS2_data: {
+          coll_ege: '',
+          sch_ool: '',
+          wo_rk: '',
+          ab_out: '',
+          intr_easts: '',
+          user_link: ''
+        }
+      }
         
-    
-        axios.post('http://192.168.43.77:3000/api/createusers', {
-          full_name: this.state.full_name,
-        user_name: this.state.user_name,
-        mobile_number: this.state.mobile_number,
-        e_mail: this.state.e_mail,
-        pass_word: this.state.pass_word
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+    })
+    if(this.state.currentScreen === "RegisterScreen2") {
+      this.submitAndClear()
     }
+  }
+
+  prevStep = async () => {
+    this.setState({
+      currentScreen: 'RegisterScreen1',
+      progress: 0.5,
+      user: {
+        full_name: '',
+           user_name: '',
+           mobile_number: '',
+           e_mail: '',
+           pass_word: '',
+           coll_ege: '',
+           sch_ool: '',
+           wo_rk: '',
+           ab_out: '',
+           intr_easts: '',
+           user_link: ''
+        }
+    })
+  }
+
+  submitAndClear = async () => {
+    this.setState({
+      user: {
+        full_name: '',
+           user_name: '',
+           mobile_number: '',
+           e_mail: '',
+           pass_word: '',
+           coll_ege: '',
+           sch_ool: '',
+           wo_rk: '',
+           ab_out: '',
+           intr_easts: '',
+           user_link: ''
+        }
+    })
+   
+    try {
+       await AsyncStorage.setItem('UserInfoPart1',  JSON.stringify(this.state.user)); 
+      const value = await AsyncStorage.getItem('UserInfoPart1'); 
+        // We have data!!
+        console.log(value);
+    } catch (error) {
+      // Error retrieving data
+      console.warn(`Error occured: ${error}`)
+
+    }
+  
+    /**const newUser = {
+      full_name: this.state.full_name,
+      user_name: this.state.user_name,
+      mobile_number: this.state.mobile_number,
+      e_mail: this.state.e_mail,
+      pass_word: this.state.password
+    }**/
+  
+  
+     /** axios.post('http://192.168.43.77:3000/api/createusers', {
+        full_name: this.state.full_name,
+      user_name: this.state.user_name,
+      mobile_number: this.state.mobile_number,
+      e_mail: this.state.e_mail,
+      pass_word: this.state.pass_word
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });**/
+  }
+
+  
+
+  render() {
+
+    const { currentScreen } = this.state;
+    let mainScreen = currentScreen === 'RegisterScreen1' ? <RegisterScreen1/> : <RegisterScreen2/>;
+    YellowBox.ignoreWarnings(['Warning: Async Storage has been extracted from react-native core']);  // <- insert the warning text here you wish to hide.
     
-      render() {
         return (
-          <View style={styles.Regscreenmainview}> 
-          <View style={{bottom: 10}}>
-          <Text style={styles.RSlogo}>onbvn</Text>
-          <Text style={styles.RSsublogo}>Register With onbvn</Text>
-          <Text style={styles.RSsublogo}>To See Photos And Videos Of Your Friends</Text>
+             
+              <ScrollView 
+              horizontal={true}
+              pagingEnabled={true}
+              scrollEnabled={false}
+              >
+
+      <StatusBar
+          backgroundColor="#000000"
+          barStyle="light-content"
+        />
+              <View style={styles.Regscreenmainview}> 
+              <View style={{bottom: 10}}>
+              <Text style={styles.RSlogo}>onbvn</Text>
+              <Text style={styles.RSsublogo}>Register With onbvn</Text>
+              <Text style={styles.RSsublogo}>To See Photos And Videos Of Your Friends</Text>
+              <View>
+            <ProgressBarAndroid
+              styleAttr="Horizontal"
+              indeterminate={false}
+              color="#ffffff"
+              progress={this.state.progress}
+            />
           </View>
-          <View style={{bottom: 10}}>
-               <TextInput 
-               style={styles.LSInp1}
-               placeholder={'Full Name'}
-               placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
-               underlineColorAndroid='transparent'
-               onChangeText={full_name => this.setState({full_name})}
-               value={this.state.full_name}
-               clearButtonMode = 'always'
-               />
-               <TextInput 
-               style={styles.LSInp2}
-               placeholder={'Username'}
-               placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
-               underlineColorAndroid='transparent'
-               onChangeText={user_name => this.setState({user_name})}
-               value={this.state.user_name}
-               clearButtonMode = 'always'
-               />
-               <TextInput 
-               style={styles.LSInp2}
-               placeholder={'Mobile Number'}
-               placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
-               keyboardType='phone-pad'
-               underlineColorAndroid='transparent'
-               onChangeText={mobile_number => this.setState({mobile_number})}
-               value={this.state.mobile_number}
-               clearButtonMode = 'always'
-    
-               />
-               <TextInput 
-               style={styles.LSInp2}
-               placeholder={'Email'}
-               placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
-               keyboardType='email-address'
-               underlineColorAndroid='transparent'
-               onChangeText={e_mail => this.setState({e_mail})}
-               value={this.state.e_mail}
-               clearButtonMode = 'always'
-    
-               />
-               <TextInput 
-               style={styles.LSInp2}
-               placeholder={'Password'}
-               placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
-               secureTextEntry
-               underlineColorAndroid='transparent'
-               onChangeText={pass_word => this.setState({pass_word})}
-               value={this.state.pass_word}
-               clearButtonMode = 'always'
-    
-               />
-                <View style={{top: 10}}>
-                 <Text style={{color: '#ffffff', textAlign: 'center', fontSize: 15, fontFamily: 'montserratregular' }}>By Signing Up, You Agree Our <Text style={{fontWeight: '900', fontSize: 15, fontFamily: 'montserratregular'}}>Terms</Text>,</Text>
-                 <Text style={{color: '#ffffff', textAlign: 'center', fontSize: 15, fontFamily: 'montserratregular' }}><Text style={{fontWeight: '900', fontSize: 15, fontFamily: 'montserratregular'}}>Data Policy</Text> & <Text style={{fontWeight: '900', fontSize: 15, fontFamily: 'montserratregular'}}>Cookies Policy</Text></Text>
-                 </View>
-                 <View style={{top: 20}}>
-                {/*<GetStarted />*/}
-                <View style={{alignItems: 'center'}}>
-                <TouchableOpacity title="Back" onPress={() => this.submitAndClear()} style={{backgroundColor: '#303030', width: Dimensions.get('window').width-200, height: 45, justifyContent: 'center', borderRadius: 5}} >
-                <Text style={{fontSize: 18, fontWeight: 'normal', textAlign: 'center', justifyContent: 'center', color: '#ffffff'}}>Get Started</Text>
-                </TouchableOpacity>
-                </View>
-                </View>
-               </View>
-           </View>
+              </View>
+              <View style={{bottom: 10}}>
+                   
+                  
+                  {mainScreen}
+                  
+
+              
+                    <View style={{top: 10}}>
+                    <Text style={{color: '#ffffff', textAlign: 'center', fontSize: 15, fontFamily: 'montserratregular' }}>By Signing Up, You Agree Our <Text style={{fontWeight: '900', fontSize: 15, fontFamily: 'montserratregular'}}>Terms</Text>,</Text>
+                    <Text style={{color: '#ffffff', textAlign: 'center', fontSize: 15, fontFamily: 'montserratregular' }}><Text style={{fontWeight: '900', fontSize: 15, fontFamily: 'montserratregular'}}>Data Policy</Text> & <Text style={{fontWeight: '900', fontSize: 15, fontFamily: 'montserratregular'}}>Cookies Policy</Text></Text>
+                    </View>
+                    <View style={{top: 30}}>
+                    {/*<GetStarted />*/}
+                    <View style={{alignItems: 'flex-end'}}>
+                    <TouchableOpacity title="Next" onPress={() => this.nextStep()} style={{backgroundColor: '#303030', width: Dimensions.get('window').width-260, height: 45, justifyContent: 'center', borderRadius: 5,marginRight:32}} >
+                    <Text style={{fontSize: 18, fontWeight: 'normal', textAlign: 'center', justifyContent: 'center', color: '#ffffff'}}>Next</Text>
+                    </TouchableOpacity>
+                    </View>
+                    </View>
+                    <View style={{top: -15}}>
+                    {/*<GetStarted />*/}
+                    <View style={{alignItems: 'flex-start'}}>
+                    <TouchableOpacity title="Back" onPress={() => this.prevStep()} style={{backgroundColor: '#303030', width: Dimensions.get('window').width-260, height: 45, justifyContent: 'center', borderRadius: 5,marginLeft:35}} >
+                    <Text style={{fontSize: 18, fontWeight: 'normal', textAlign: 'center', justifyContent: 'center', color: '#ffffff'}}>Back</Text>
+                    </TouchableOpacity>
+                    </View>
+                    </View>
+                  </View>
+              </View>
+              <View style={styles.mainview}>
+                  <Image source={welcomescreen2}  style={styles.ws}/>
+                  <GoToLoginScreenBtn style={{}}/>
+              </View>
+
+              </ScrollView>
+             
         );
-      }
-    }
+
+        
+  }
+}
+
+
+
 
     const styles = StyleSheet.create({
         mainview: {
@@ -200,6 +289,10 @@ class RegisterScreen extends Component {
                 textAlign: 'center',
                 justifyContent: 'center',
                 color: '#ffffff'
+              },
+              ws: {
+                width: Dimensions.get('window').width,
+              height: Dimensions.get('window').height,
               }
       })
     
