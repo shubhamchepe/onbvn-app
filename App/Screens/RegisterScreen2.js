@@ -7,6 +7,7 @@ import GoToLoginScreenBtn from '../Components/GoToLoginScreenBtn';
 import axios from 'react-native-axios';
 import welcomescreen2 from '../Images/welcomescreen2.png';
 import aadhar_icon from '../Images/aadhaar-icon.png';
+import aadhar_icon2 from '../Images/aadhaar-icon2.png';
 import AsyncStorage from '@react-native-community/async-storage';
 import ImagePicker from 'react-native-image-picker';
 const { width: WIDTH } = Dimensions.get('window')
@@ -80,7 +81,7 @@ componentDidMount = () => {
     const options = {};
     ImagePicker.launchImageLibrary(options, response => {
     console.log("response", response);
-    noData: true,
+    noData: true
     });
   }
   
@@ -117,7 +118,7 @@ componentDidMount = () => {
     <TouchableOpacity onPress={this.handleChoosePhoto}>
                <Image
                  style={styles.imgupld2}
-                 source={aadhar_icon}
+                 source={aadhar_icon2}
                 />
     </TouchableOpacity>
     <Text style={styles.aadhar_text}>Click to upload aadhaar card (Back)</Text>
@@ -257,7 +258,7 @@ componentDidMount = () => {
               justifyContent: 'center',
               alignItems: 'center',
               marginHorizontal: 25,
-              margin: 15
+              margin: 15,
             },
             imgupld2: {
               width: WIDTH - 200,

@@ -27,6 +27,176 @@ class RegisterScreen1 extends Component {
          pass_word: ''
     }
   }
+
+   validateAadhaar(input)
+   {
+     numbers=/^[0-9]+$/;
+     if(input == this.state.aadhaar_number){
+        if(numbers.test(this.state.aadhaar_number)){
+          Toast.show({
+            text: "Good! Go Ahead",
+             buttonText: "",
+              type: "success"
+           });
+        } else {
+          Toast.show({
+            text: "Enter 12-Digit Aadhaar!",
+             buttonText: "",
+              type: "danger"
+           });
+        }
+        if(this.state.aadhaar_number.length === ''){
+          Toast.show({
+            text: "Please Enter Aadhaar Number",
+             buttonText: "",
+              type: "success"
+           });
+        } else{
+          null
+        }
+        if(this.state.aadhaar_number.length == 11){
+          Toast.show({
+            text: "Good Job!",
+             buttonText: "",
+              type: "success"
+           });
+        }
+       
+      }
+   }
+
+   validateFullname(input)
+   {
+     alpha=/^[a-zA-Z]+$/;
+     if(input == this.state.full_name){
+        if(alpha.test(input)){
+          Toast.show({
+            text: "Great & Make Sure Your Name Is Same As On Aadhaar Card! ",
+             buttonText: "",
+              type: "success"
+           });
+        } else{
+          Toast.show({
+            text: "Your Name Should Be Plain Text!",
+             buttonText: "",
+              type: "danger"
+           });
+        }
+        if(this.state.full_name === ''){
+          Toast.show({
+            text: "Please Enter Your Full Name As Per Your Aadhaar Card",
+             buttonText: "",
+              type: "success"
+           });
+        } else{
+          null
+        }
+      }
+   }
+
+   validateUsername(input)
+   {
+     alpha=/^[a-z]+$/;
+     if(input == this.state.user_name){
+        if(alpha.test(input)){
+          Toast.show({
+            text: "Great",
+             buttonText: "",
+              type: "success"
+           });
+        } else{
+          Toast.show({
+            text: "Username Should Be All Lowercase Letters",
+             buttonText: "",
+              type: "danger"
+           });
+        }
+        if(this.state.user_name === ''){
+          Toast.show({
+            text: "Please Enter Your Username",
+             buttonText: "",
+              type: "success"
+           });
+        } else{
+          null
+        }
+      }
+   }
+
+   validateMobno(input)
+   {
+     numbers=/^[0-9]+$/;
+     if(input == this.state.mobile_number){
+        if(numbers.test(this.state.mobile_number)){
+          Toast.show({
+            text: "Ohh! Your Number Has A Lucky Start!",
+             buttonText: "",
+              type: "success"
+           });
+        } else {
+          Toast.show({
+            text: "Enter 10-Digit Mobile Number!",
+             buttonText: "",
+              type: "danger"
+           });
+        }
+        if(this.state.mobile_number === ''){
+          Toast.show({
+            text: "Please Enter Your Mobile Number",
+             buttonText: "",
+              type: "success"
+           });
+        } else{
+          null
+        }
+        if(this.state.mobile_number.length == 9){
+          Toast.show({
+            text: "Amazing!!",
+             buttonText: "",
+              type: "success"
+           });
+        }
+       
+      }
+   }
+
+   validateEmail(input)
+   {
+     email=/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/igm;
+     if(input == this.state.e_mail){
+        if(email.test(this.state.e_mail)){
+          Toast.show({
+            text: "Be Carefull ! , We will be verifying it's you!",
+             buttonText: "",
+              type: "success"
+           });
+        } else {
+          Toast.show({
+            text: "Email Not Valid",
+             buttonText: "",
+              type: "danger"
+           });
+        }
+        if(this.state.e_mail === ''){
+          Toast.show({
+            text: "Please Enter Your Email",
+             buttonText: "",
+              type: "success"
+           });
+        } else{
+          null
+        }
+        if(this.state.e_mail.length == 9){
+          Toast.show({
+            text: "Amazing!!",
+             buttonText: "",
+              type: "success"
+           });
+        }
+       
+      }
+   }
+
   submitAndClear = async () => {
     this.setState({
       aadhaar_number: this.state.aadhaar_number,
@@ -83,16 +253,17 @@ class RegisterScreen1 extends Component {
              placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
              keyboardType='phone-pad'
              underlineColorAndroid='transparent'
-             onChangeText={aadhaar_number => this.setState({aadhaar_number})}
+             onChangeText={aadhaar_number => {this.setState({aadhaar_number}); this.validateAadhaar(this.state.aadhaar_number);}}
              value={this.state.aadhaar_number}
              clearButtonMode = 'always'
+             maxLength = {12}
              />
              <TextInput 
              style={styles.LSInp2}
              placeholder={'Fullname'}
              placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
              underlineColorAndroid='transparent'
-             onChangeText={full_name => this.setState({full_name})}
+             onChangeText={full_name => {this.setState({full_name}); this.validateFullname(this.state.full_name);}}
              value={this.state.full_name}
              clearButtonMode = 'always'
              />
@@ -101,7 +272,7 @@ class RegisterScreen1 extends Component {
              placeholder={'Username'}
              placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
              underlineColorAndroid='transparent'
-             onChangeText={user_name => this.setState({user_name})}
+             onChangeText={user_name => {this.setState({user_name}); this.validateUsername(this.state.user_name);}}
              value={this.state.user_name}
              clearButtonMode = 'always'
   
@@ -112,9 +283,10 @@ class RegisterScreen1 extends Component {
              placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
              keyboardType='phone-pad'
              underlineColorAndroid='transparent'
-             onChangeText={mobile_number => this.setState({mobile_number})}
+             onChangeText={mobile_number => {this.setState({mobile_number}); this.validateMobno(this.state.mobile_number);}}
              value={this.state.mobile_number}
              clearButtonMode = 'always'
+             maxLength = {10}
   
              />
              <TextInput 
@@ -123,7 +295,7 @@ class RegisterScreen1 extends Component {
              placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
              keyboardType='email-address'
              underlineColorAndroid='transparent'
-             onChangeText={e_mail => this.setState({e_mail})}
+             onChangeText={e_mail => {this.setState({e_mail}); this.validateEmail(this.state.e_mail);}}
              value={this.state.e_mail}
              clearButtonMode = 'always'
   
