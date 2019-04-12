@@ -32,6 +32,7 @@ import NotificationScreen from './App/Screens/NotificationScreen';
 import SearchScreen from './App/Screens/SearchScreen';
 import ChatScreen from './App/Screens/ChatScreen';
 import SplashToWelcomeScreen from './App/Screens/SplashToWelcomeScreen';
+import ThanksForReg from './App/Screens/ThanksForReg';
 
 
 
@@ -193,6 +194,12 @@ const MainNavigator = createStackNavigator({
       header: null
     }
   },
+  Thanksforreg: {
+    screen: ThanksForReg,
+    navigationOptions: {
+      header: null
+    }
+  }
   
 },
 {

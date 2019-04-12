@@ -6,8 +6,7 @@ import GoToRegScreen from '../Components/GoToRegScreen';
 import GoToLoginScreenBtn from '../Components/GoToLoginScreenBtn';
 import axios from 'react-native-axios';
 import welcomescreen2 from '../Images/welcomescreen2.png';
-import aadhar_icon from '../Images/aadhaar-icon.png';
-import aadhar_icon2 from '../Images/aadhaar-icon2.png';
+import ok2 from '../Images/ok2.gif';
 import AsyncStorage from '@react-native-community/async-storage';
 import ImagePicker from 'react-native-image-picker';
 const { width: WIDTH } = Dimensions.get('window')
@@ -15,7 +14,7 @@ const { height: HEIGHT } = Dimensions.get('window')
 
 
 
-class RegisterScreen2 extends Component {
+class ThanksForReg extends Component {
   
 componentDidMount = () => {
   
@@ -56,7 +55,7 @@ componentDidMount = () => {
       pass_word: this.state.password
     }**/
   
-    this.props.navigation.navigate('Thanksforreg'); //Homescreen1
+    this.props.navigation.navigate('Loginscreen'); //Homescreen1
     console.log('Form Submitted !');
       console.log(`Work : ${this.state.wo_rk}`);
       console.log(`School : ${this.state.sch_ool}`);
@@ -91,95 +90,33 @@ componentDidMount = () => {
         <View style={styles.Regscreenmainview}> 
         <View style={{bottom: 10}}>
         <Text style={styles.RSlogo}>onbvn</Text>
-        <Text style={styles.RSsublogo}>Register With onbvn</Text>
-        <Text style={styles.RSsublogo}>To See Photos And Videos Of Your Friends</Text>
+        <Text style={styles.RSsublogo}>Registration Completed Successfully</Text>
+        <Text style={styles.RSsublogo}>Now You Can Go & Login</Text>
         </View>
         <View style={{bottom: 10}}>
-             {/* <TextInput 
-             style={styles.LSInp1}
-             placeholder={'Work'}
-             placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
-             underlineColorAndroid='transparent'
-             onChangeText={wo_rk => this.setState({wo_rk})}
-             value={this.state.wo_rk}
-             clearButtonMode = 'always'
-             /> */}
-             <View style={{top: 10}}>
-             <TouchableOpacity onPress={this.handleChoosePhoto}>
+            
+             <View style={{top: 20}}>
+            
                <Image
                  style={styles.imgupld1}
-                 source={aadhar_icon}
+                 source={require('../Images/ok2.gif')}
                 />
-    </TouchableOpacity>
-    <Text style={styles.aadhar_text}>Click to upload aadhaar card (Front)</Text>
+    
+    <Text style={styles.aadhar_text}></Text>
     </View>
      
-     <View style={{top: 20}}>
-    <TouchableOpacity onPress={this.handleChoosePhoto}>
-               <Image
-                 style={styles.imgupld2}
-                 source={aadhar_icon2}
-                />
-    </TouchableOpacity>
-    <Text style={styles.aadhar_text}>Click to upload aadhaar card (Back)</Text>
-    </View>
-             {/* <TextInput 
-             style={styles.LSInp2}
-             placeholder={'School'}
-             placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
-             underlineColorAndroid='transparent'
-             onChangeText={sch_ool => this.setState({sch_ool})}
-             value={this.state.sch_ool}
-             clearButtonMode = 'always'
-             />
-             <TextInput 
-             style={styles.LSInp2}
-             placeholder={'College'}
-             placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
-             keyboardType='phone-pad'
-             underlineColorAndroid='transparent'
-             onChangeText={coll_ege => this.setState({coll_ege})}
-             value={this.state.coll_ege}
-             clearButtonMode = 'always'
-  
-             />
-             <TextInput 
-             style={styles.LSInp2}
-             placeholder={'Girlfriend'}
-             placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
-             underlineColorAndroid='transparent'
-             onChangeText={girl_friend => this.setState({girl_friend})}
-             value={this.state.girl_friend}
-             clearButtonMode = 'always'
-  
-             />
-             <TextInput 
-             style={styles.LSInp2}
-             placeholder={'Girlfriend2'}
-             placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
-             underlineColorAndroid='transparent'
-             onChangeText={girl_friend2 => this.setState({girl_friend2})}
-             value={this.state.girl_friend2}
-             clearButtonMode = 'always'
-  
-             /> */}
+     
+             
               <View style={{top: 50}}>
-               <Text style={{color: '#ffffff', textAlign: 'center', fontSize: 15, fontFamily: 'montserratregular' }}>By Signing Up, You Agree Our <Text style={{fontWeight: '900', fontSize: 15, fontFamily: 'montserratregular'}}>Terms</Text>,</Text>
-               <Text style={{color: '#ffffff', textAlign: 'center', fontSize: 15, fontFamily: 'montserratregular' }}><Text style={{fontWeight: '900', fontSize: 15, fontFamily: 'montserratregular'}}>Data Policy</Text> & <Text style={{fontWeight: '900', fontSize: 15, fontFamily: 'montserratregular'}}>Cookies Policy</Text></Text>
+               <Text style={{color: '#ffffff', textAlign: 'center', fontSize: 15, fontFamily: 'montserratregular' }}><Text style={{fontWeight: '900', fontSize: 15, fontFamily: 'montserratregular'}}></Text></Text>
+               <Text style={{color: '#ffffff', textAlign: 'center', fontSize: 15, fontFamily: 'montserratregular' }}><Text style={{fontWeight: '900', fontSize: 15, fontFamily: 'montserratregular'}}></Text><Text style={{fontWeight: '900', fontSize: 15, fontFamily: 'montserratregular'}}></Text></Text>
                </View>
-               <View style={{top: 60}}>
-                    {/*<GetStarted />*/}
-                    <View style={{alignItems: 'flex-end'}}>
-                    <TouchableOpacity title="Next" onPress={() => this.submitAndClear()} style={{backgroundColor: '#303030', width: Dimensions.get('window').width-280, height: 45, justifyContent: 'center', borderRadius: 5}} >
-                    <Text style={{fontSize: 18, fontWeight: 'normal', textAlign: 'center', justifyContent: 'center', color: '#ffffff'}}>Get Started</Text>
-                    </TouchableOpacity>
-                    </View>
-                    </View>
-                    <View style={{top: 15}}>
+               
+                    <View style={{top: 10}}>
                     {/*<GetStarted />*/}
                     <View style={{alignItems: 'flex-start'}}>
-                    <TouchableOpacity title="Back" onPress={() => this.props.navigation.goBack()} style={{backgroundColor: '#303030', width: Dimensions.get('window').width-280, height: 45, justifyContent: 'center', borderRadius: 5}} >
-                    <Text style={{fontSize: 18, fontWeight: 'normal', textAlign: 'center', justifyContent: 'center', color: '#ffffff'}}>Back</Text>
+                    <TouchableOpacity title="Back" onPress={() => this.props.navigation.navigate('Loginscreen')} style={{backgroundColor: '#44d688', width: Dimensions.get('window').width-280, height: 45, justifyContent: 'center', borderRadius: 5}} >
+                    <Text style={{fontSize: 18, fontWeight: '700', textAlign: 'center', justifyContent: 'center', color: '#ffffff'}}>Let's Go</Text>
                     </TouchableOpacity>
                     </View>
                     </View>
@@ -252,13 +189,12 @@ componentDidMount = () => {
               color: '#ffffff'
             },
             imgupld1: {
-              width: WIDTH - 200,
-              height: 120,
+              width: WIDTH - 310,
+              height: 100,
               borderRadius: 9,
               justifyContent: 'center',
               alignItems: 'center',
-              marginHorizontal: 25,
-              margin: 15,
+              marginHorizontal: 10,
             },
             imgupld2: {
               width: WIDTH - 200,
@@ -280,4 +216,4 @@ componentDidMount = () => {
 
     })
   
-    export default RegisterScreen2;
+    export default ThanksForReg;
